@@ -6,5 +6,6 @@ namespace BaoCMS.Framework.Domain
 {
     public interface IRepository<T> where T : IAggregateRoot
     {
+
     }
 }

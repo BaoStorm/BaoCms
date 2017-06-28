@@ -7,6 +7,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using BaoCMS.Data.Configuration;
+using BaoCMS.Data.Extensions;
+using BaoCMS.Web.Extensions;
+using Autofac;
+using BaoCMS.Web;
+using Autofac.Extensions.DependencyInjection;
 
 namespace BaoCMS
 {
@@ -25,15 +31,36 @@ namespace BaoCMS
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+
+            services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.AddEntityFramework(Configuration);
             // Add framework services.
             services.AddMvc();
+
+            services.AddAutoMapper();
+
+            var builder = new ContainerBuilder();
+
+            builder.RegisterModule(new AutofacModule());
+            builder.Populate(services);
+
+            var container = builder.Build();
+
+            return container.Resolve<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.EnsureDbCreated();
+            app.EnsureIdentityCreatedAsync();
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
