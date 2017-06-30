@@ -29,7 +29,7 @@ namespace BaoCMS
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public static IConfigurationRoot Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -45,7 +45,7 @@ namespace BaoCMS
                 options.AreaViewLocationFormats.Add("/Areas/{2}/Views/Shared/{0}.cshtml");
                 options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
             });
-            
+
 
             services.AddApplicationInsightsTelemetry(Configuration);
 
@@ -68,11 +68,12 @@ namespace BaoCMS
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            app.AddDevMiddlewares();
+
             app.EnsureDbCreated();
             app.EnsureIdentityCreatedAsync();
 
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
             {
@@ -88,8 +89,9 @@ namespace BaoCMS
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(name: "areaRoute",
-                    template: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

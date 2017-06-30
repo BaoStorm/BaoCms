@@ -23,6 +23,7 @@ namespace BaoCMS
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
                 .Build();
+            
 
             host.Run();
         }
