@@ -34,10 +34,10 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BaoCms.Reporting\BaoCMS.Reporting.csproj" />
     <ProjectReference Include="..\BaoCMS.Data\BaoCMS.Data.csproj" />
     <ProjectReference Include="..\BaoCMS.Domain\BaoCMS.Domain.csproj" />
     <ProjectReference Include="..\BaoCMS.Framework\BaoCMS.Framework.csproj" />
+    <ProjectReference Include="..\BaoCMS.Reporting\BaoCMS.Reporting.csproj" />
   </ItemGroup>
 
 </Project>
