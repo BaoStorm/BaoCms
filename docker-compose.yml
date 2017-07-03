@@ -4,5 +4,5 @@ services:
   baocms:
     image: baocms
     build:
-      context: ./BaoCMS
+      context: ./BaoCMS.Web
       dockerfile: Dockerfile

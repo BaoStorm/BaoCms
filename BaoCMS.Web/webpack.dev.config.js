@@ -13,7 +13,7 @@ const fs = require('fs');
 module.exports = merge(webpackBaseConfig, {
     devtool: '#source-map',
     output: {
-        publicPath: '/dist/',
+        publicPath: '/wwwroot/dist/',
         filename: '[name].js',
         chunkFilename: '[name].chunk.js'
     },

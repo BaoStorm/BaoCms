@@ -8,7 +8,12 @@
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
-
+  
+  <Target Name="RunWebpack" BeforeTargets="BeforePublish">
+    <Exec Command="npm run clean" />
+    <Exec Command="npm run build" />
+  </Target>
+  
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile1.pubxml" />

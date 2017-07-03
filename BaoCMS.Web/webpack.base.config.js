@@ -8,7 +8,7 @@ module.exports = {
         vendors: './src/vendors'
     },
     output: {
-        path: path.join(__dirname, './dist')
+        path: path.join(__dirname, './wwwroot/dist')
     },
     module: {
         rules: [{
