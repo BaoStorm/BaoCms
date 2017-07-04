@@ -8,7 +8,7 @@
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
-  
+
   <Target Name="RunWebpack" BeforeTargets="BeforePublish">
     <Exec Command="npm run clean" />
     <Exec Command="npm run build" />
@@ -21,6 +21,7 @@
   
   <ItemGroup>
     <Content Include="wwwroot\src\views\demo.vue" />
+    <Content Include="wwwroot\src\views\login.vue" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
@@ -35,12 +36,14 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="logs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\src\app.vue" />

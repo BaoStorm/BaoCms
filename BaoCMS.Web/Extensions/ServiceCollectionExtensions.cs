@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BaoCMS.Data.Domain;
 using BaoCMS.Data.Reporting;
+using BaoCMS.Web.Filters;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -26,6 +27,17 @@ namespace BaoCMS.Web.Extensions
 
             services.AddSingleton(sp => autoMapperConfig.CreateMapper());
 
+            return services;
+        }
+
+        public static IServiceCollection RegisterCustomServices(this IServiceCollection services)
+        {
+            // New instance every time, only configuration class needs so its ok
+            //services.Configure<SmsSettings>(options => Startup.Configuration.GetSection("SmsSettingsTwillio").Bind(options));
+            //services.AddTransient<UserResolverService>();
+            //services.AddTransient<IEmailSender, EmailSender>();
+            //services.AddTransient<ISmsSender, SmsSender>();
+            services.AddScoped<ApiExceptionFilter>();
             return services;
         }
     }

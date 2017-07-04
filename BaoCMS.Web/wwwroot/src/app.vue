@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div>
       <!--<h1>Hello App!</h1>
       <p>

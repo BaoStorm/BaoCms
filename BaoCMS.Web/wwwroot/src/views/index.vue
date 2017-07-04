@@ -1,4 +1,4 @@
-<style scoped>
+﻿<style scoped>
     .index {
         width: 100%;
         position: absolute;
@@ -39,6 +39,9 @@
                 <h2>
                     <p>Welcome to your iView app!</p>
                     <router-link to="/demo/">Home</router-link>
+                    <br />
+                    <router-link to="/login/">登陆</router-link>
+                    <br />
                     <Button type="ghost" @click="handleStart">Start iView</Button>
                 </h2>
             </Col>

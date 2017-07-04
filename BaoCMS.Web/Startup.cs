@@ -14,6 +14,9 @@ using Autofac;
 using BaoCMS.Web;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 
 namespace BaoCMS
 {
@@ -51,9 +54,27 @@ namespace BaoCMS
 
             services.AddEntityFramework(Configuration);
             // Add framework services.
-            services.AddMvc();
+
+            services.AddMvc()
+                .AddJsonOptions(r => r.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
 
             services.AddAutoMapper();
+
+            services.RegisterCustomServices();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "BaoCMS WebApI 生成文档（文档说明）",
+                    Version = "v1"
+                });
+                //Determine base path for the application.  
+                //var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                ////Set the comments path for the swagger json and ui.  
+                //var xmlPath = Path.Combine(basePath, "BaoCMS.Web.xml");
+                //c.IncludeXmlComments(xmlPath);
+            });
 
             var builder = new ContainerBuilder();
 
@@ -95,6 +116,9 @@ namespace BaoCMS
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "defaultWebApi",
+                    template: "api/{controller}/{action=Index}/{id?}");
             });
 
 
