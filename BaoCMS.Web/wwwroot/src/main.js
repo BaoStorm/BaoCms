@@ -17,7 +17,7 @@ Vue.use(iView);
 
 // 路由配置
 const RouterConfig = {
-    mode: 'history',
+    mode: 'hash',//"hash" | "history" | "abstract"
     routes: Routers
 };
 const router = new VueRouter(RouterConfig);
@@ -25,10 +25,12 @@ const router = new VueRouter(RouterConfig);
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
     Util.title(to.meta.title);
+    console.log(`路由开始：${from.path}`);
     next();
 });
 
 router.afterEach(() => {
+    console.log(`路由结束：${route.path}`);
     iView.LoadingBar.finish();
     window.scrollTo(0, 0);
 });

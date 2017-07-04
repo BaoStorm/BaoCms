@@ -18,6 +18,10 @@
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile1.pubxml" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="wwwroot\src\views\demo.vue" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -37,6 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\src\app.vue" />
+    <None Include="wwwroot\src\config\config.js" />
+    <None Include="wwwroot\src\config\env.js" />
+    <None Include="wwwroot\src\libs\util.js" />
+    <None Include="wwwroot\src\main.js" />
+    <None Include="wwwroot\src\router.js" />
+    <None Include="wwwroot\src\template\index.ejs" />
+    <None Include="wwwroot\src\vendors.js" />
+    <None Include="wwwroot\src\views\index.vue" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaoCMS.Data\BaoCMS.Data.csproj" />

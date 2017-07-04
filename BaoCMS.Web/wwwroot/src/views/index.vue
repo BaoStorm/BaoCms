@@ -38,6 +38,7 @@
                 </h1>
                 <h2>
                     <p>Welcome to your iView app!</p>
+                    <router-link to="/demo/">Home</router-link>
                     <Button type="ghost" @click="handleStart">Start iView</Button>
                 </h2>
             </Col>
