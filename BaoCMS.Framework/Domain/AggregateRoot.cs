@@ -9,6 +9,12 @@ namespace BaoCMS.Framework.Domain
         public Guid Id { get; protected set; }
         public ICollection<IDomainEvent> Events { get; protected set; } = new List<IDomainEvent>();
 
+        public bool IsDelete { get; protected set; }
+        public Guid CreateUserId { get; protected set; }
+        public DateTime CraeteDateTime { get; protected set; }
+        public Guid UpdateUserId { get; protected set; }
+        public Guid UpdateDateTime { get; protected set; }
+
         protected AggregateRoot()
         {
             Id = Guid.Empty;

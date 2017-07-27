@@ -24,9 +24,9 @@ namespace BaoCMS.Data.Extensions
 
             dataProvider.RegisterDbContext(services, connectionStringConfig);
 
-            services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<DbContext, Guid>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<User, Role>()
+            //    .AddEntityFrameworkStores<DbContext, Guid>()
+            //    .AddDefaultTokenProviders();
 
             return services;
         }

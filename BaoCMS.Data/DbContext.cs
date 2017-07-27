@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BaoCMS.Data
 {
-    public class DbContext : IdentityDbContext<User, Role, Guid>
+    public class DbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public DbContext(DbContextOptions<DbContext> options)
             : base(options)
@@ -28,23 +28,6 @@ namespace BaoCMS.Data
             builder.Entity<User>()
                 .ToTable("User");
 
-            builder.Entity<Role>()
-                .ToTable("Role");
-
-            builder.Entity<IdentityUserClaim<Guid>>()
-                .ToTable("UserClaim");
-
-            builder.Entity<IdentityUserRole<Guid>>()
-                .ToTable("UserRole");
-
-            builder.Entity<IdentityUserLogin<Guid>>()
-                .ToTable("UserLogin");
-
-            builder.Entity<IdentityUserToken<Guid>>()
-                .ToTable("UserToken");
-
-            builder.Entity<IdentityRoleClaim<Guid>>()
-                .ToTable("RoleClaim");
         }
 
 
@@ -52,5 +35,6 @@ namespace BaoCMS.Data
 
         public DbSet<DomainAggregate> DomainAggregates { get; set; }
         public DbSet<DomainEvent> DomainEvents { get; set; }
+        public DbSet<User> Users { set; get; }
     }
 }

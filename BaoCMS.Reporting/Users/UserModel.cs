@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaoCMS.Framework.Queries
+namespace BaoCMS.Reporting.Users
 {
-    public interface IQuery
+    public class UserModel
     {
-        
+
     }
 }

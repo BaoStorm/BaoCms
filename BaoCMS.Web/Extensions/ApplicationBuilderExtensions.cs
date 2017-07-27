@@ -38,12 +38,12 @@ namespace BaoCMS.Web.Extensions
         public static IApplicationBuilder AddDevMiddlewares(this IApplicationBuilder app)
         {
             var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
-            var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
+            //var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
 
             if (env.IsDevelopment())
             {
-                loggerFactory.AddConsole(Startup.Configuration.GetSection("Logging"));
-                loggerFactory.AddDebug();
+                //loggerFactory.AddConsole(Startup.Configuration.GetSection("Logging"));
+                //loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
                 app.UseCustomWebpackDevMiddleware();
                 // NOTE: For SPA swagger needs adding before MVC

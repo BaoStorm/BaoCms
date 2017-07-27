@@ -8,6 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using BaoCMS.Domain.Users.Commands;
+using BaoCMS.Framework.Commands;
+using BaoCMS.Framework.Queries;
+using BaoCMS.Reporting.Users;
+using BaoCMS.Reporting.Users.Queries;
 
 namespace BaoCMS.Data.Extensions
 {
@@ -24,32 +29,50 @@ namespace BaoCMS.Data.Extensions
 
         public static async Task<IApplicationBuilder> EnsureIdentityCreatedAsync(this IApplicationBuilder app)
         {
-            var userManager = app.ApplicationServices.GetRequiredService<UserManager<User>>();
-            var roleManager = app.ApplicationServices.GetRequiredService<RoleManager<Role>>();
+            var commandSender = app.ApplicationServices.GetRequiredService<ICommandSender>();
+            var queryDispatcher= app.ApplicationServices.GetRequiredService<IQueryDispatcher>();
 
-            if (!await roleManager.RoleExistsAsync(Administrator.Name))
+            var query = new GetLoginUserModel
             {
-                await roleManager.CreateAsync(new Role
+                UserName = "admin",
+                Password = "admin"
+            };
+            var user= await queryDispatcher.DispatchAsync<GetLoginUserModel, LoginUserModel>(query);
+            if (user == null)
+            {
+                await commandSender.SendAsync<CreateUser>(new CreateUser()
                 {
-                    Id = Administrator.Id,
-                    Name = Administrator.Name
+                    UserName="admin",
+                    Email= "admin@default.com",
+                    Password = "admin"
                 });
             }
+            //var userManager = app.ApplicationServices.GetRequiredService<UserManager<User>>();
+            //var roleManager = app.ApplicationServices.GetRequiredService<RoleManager<Role>>();
 
-            var adminEmail = "admin@default.com";
+            //if (!await roleManager.RoleExistsAsync(Administrator.Name))
+            //{
+            //    await roleManager.CreateAsync(new Role
+            //    {
+            //        Id = Administrator.Id,
+            //        Name = Administrator.Name
+            //    });
+            //}
 
-            if (await userManager.FindByEmailAsync(adminEmail) == null)
-            {
-                var user = new User { UserName = adminEmail, Email = adminEmail };
-                await userManager.CreateAsync(user, "admin");
-            }
+            //var adminEmail = "admin@default.com";
 
-            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            //if (await userManager.FindByEmailAsync(adminEmail) == null)
+            //{
+            //    var user = new User { UserName = adminEmail, Email = adminEmail };
+            //    await userManager.CreateAsync(user, "admin");
+            //}
 
-            if (!await userManager.IsInRoleAsync(adminUser, Administrator.Name))
-            {
-                await userManager.AddToRoleAsync(adminUser, Administrator.Name);
-            }
+            //var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            //if (!await userManager.IsInRoleAsync(adminUser, Administrator.Name))
+            //{
+            //    await userManager.AddToRoleAsync(adminUser, Administrator.Name);
+            //}
 
             return app;
         }

@@ -8,9 +8,10 @@ using BaoCMS.Data;
 namespace BaoCMS.Data.Migrations
 {
     [DbContext(typeof(DbContext))]
-    partial class DbContextModelSnapshot : ModelSnapshot
+    [Migration("20170727062008_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

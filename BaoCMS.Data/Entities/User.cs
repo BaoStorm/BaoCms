@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BaoCMS.Data.Entities.Base;
 
 namespace BaoCMS.Data.Entities
 {
-    public class User : IdentityUser<Guid>
+    public class User : EntitiesBase
     {
-        public string DisplayName { get; set; }
-        public string Prefix { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleNames { get; set; }
-        public string Surname { get; set; }
-        //public UserStatus Status { get; set; }
+        public string UserName { set; get; }
+        public string Password { set; get; }
+        public string Email { set; get; }
+        public bool EmailConfirmed { set; get; }
+        public string PhoneNumber { set; get; }
+        public bool PhoneNumberConfirmed { set; get; }
+
     }
 }

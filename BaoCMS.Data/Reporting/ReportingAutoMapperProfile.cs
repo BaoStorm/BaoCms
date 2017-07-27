@@ -30,6 +30,7 @@ namespace BaoCMS.Data.Reporting
             //CreateMap<User, UserAdminModel>();
             //CreateMap<User, UserAdminListModel>();
             CreateMap<User, UserInfo>();
+            CreateMap<User, LoginUserModel>();
         }
     }
 }

@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
+using BaoCMS.Web.Validators;
+using IdentityServer4;
+using IdentityServer4.Models;
 
 namespace BaoCMS
 {
@@ -40,6 +43,7 @@ namespace BaoCMS
             services.AddOptions();
 
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<Data.Configuration.Data>(Configuration.GetSection("Data"));
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
@@ -54,6 +58,8 @@ namespace BaoCMS
 
             services.AddEntityFramework(Configuration);
             // Add framework services.
+
+
 
             services.AddMvc()
                 .AddJsonOptions(r => r.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
@@ -76,6 +82,15 @@ namespace BaoCMS
                 //c.IncludeXmlComments(xmlPath);
             });
 
+            var identityServerBuilder = services.AddIdentityServer();
+            identityServerBuilder
+                .AddDeveloperSigningCredential("tempkey.rsa") //添加证书 没有自动创建
+                //.AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients());
+
+            identityServerBuilder.AddResourceOwnerValidator<ResourceOwnerPasswordValidator>();
+
             var builder = new ContainerBuilder();
 
             builder.RegisterModule(new AutofacModule());
@@ -89,12 +104,18 @@ namespace BaoCMS
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
 
             app.AddDevMiddlewares();
 
             app.EnsureDbCreated();
             app.EnsureIdentityCreatedAsync();
 
+            //app.UseIdentity();//启用netcore 自带的用户管理
+
+            app.UseIdentityServer();
 
             if (env.IsDevelopment())
             {
