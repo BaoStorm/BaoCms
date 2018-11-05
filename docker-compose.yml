@@ -1,8 +1,0 @@
-version: '2'
-
-services:
-  baocms:
-    image: baocms
-    build:
-      context: ./BaoCMS.Web
-      dockerfile: Dockerfile
