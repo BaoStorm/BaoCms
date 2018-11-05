@@ -4,3 +4,6 @@
 /src/Services/Identity/Identity.API/obj
 /src/Services/Identity/Identity.Domain/obj
 /src/Services/Identity/Identity.Infrastructure/obj
+/src/Services/Identity/Identity.API/bin/Debug/netcoreapp2.1
+/src/Services/Identity/Identity.Domain/bin/Debug/netstandard2.0
+/src/Services/Identity/Identity.Infrastructure/bin/Debug/netstandard2.0
