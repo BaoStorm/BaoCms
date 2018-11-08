@@ -16,7 +16,6 @@ namespace Identity.API
             CreateWebHostBuilder(args).Build()
                 .MigrateDbContext<IdentityContext>((context, services) =>
                 {
-                    var env = services.GetService<IHostingEnvironment>();
                     var logger = services.GetService<ILogger<IdentityContextSeed>>();
 
                     new IdentityContextSeed()

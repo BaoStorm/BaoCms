@@ -12,7 +12,7 @@ namespace Identity.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<ClientRequest> requestConfiguration)
         {
-            requestConfiguration.ToTable("requests", IdentityContext.DEFAULT_SCHEMA);
+            requestConfiguration.ToTable("requests");
             requestConfiguration.HasKey(cr => cr.Id);
             requestConfiguration.Property(cr => cr.Name).IsRequired();
             requestConfiguration.Property(cr => cr.Time).IsRequired();

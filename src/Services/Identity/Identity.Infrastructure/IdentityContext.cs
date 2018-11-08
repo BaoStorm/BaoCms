@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Identity.Domain.AggregatesModel.UserAggregate;
 using Identity.Domain.SeedWork;
 using Identity.Infrastructure.EntityConfigurations;
+
 using MediatR;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Options;
 
 namespace Identity.Infrastructure
 {
@@ -16,6 +17,8 @@ namespace Identity.Infrastructure
     {
         public const string DEFAULT_SCHEMA = "identity";
         public DbSet<User> Users { get; set; }
+
+        public DbSet<RoleType> RoleTypes { get; set; }
 
         private readonly IMediator _mediator;
 
@@ -51,7 +54,10 @@ namespace Identity.Infrastructure
         public IdentityContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<IdentityContext>()
-                .UseMySql("");
+                .UseSqlServer("UsedForMigrationsOnlyUntilClassLibraryBugIsFixed", action =>
+                    {
+                        action.MigrationsAssembly("Identity.API");
+                    });
 
             return new IdentityContext(optionsBuilder.Options, new NoMediator());
         }

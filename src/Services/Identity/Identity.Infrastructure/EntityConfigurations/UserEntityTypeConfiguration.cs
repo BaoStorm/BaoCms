@@ -11,7 +11,7 @@ namespace Identity.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<User> userConfiguaration)
         {
-            userConfiguaration.ToTable("users", IdentityContext.DEFAULT_SCHEMA);
+            userConfiguaration.ToTable("users");
 
             userConfiguaration.HasKey(o => o.Id);
 

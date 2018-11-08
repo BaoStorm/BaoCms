@@ -11,7 +11,7 @@ namespace Identity.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<RoleType> roleTypeConfiguaration)
         {
-            roleTypeConfiguaration.ToTable("roletypes", IdentityContext.DEFAULT_SCHEMA);
+            roleTypeConfiguaration.ToTable("roletypes");
 
             roleTypeConfiguaration.HasKey(o => o.Id);
 

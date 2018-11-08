@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Identity.API
 {
@@ -95,6 +96,8 @@ namespace Identity.API
                         options.UseMySql(configuration["ConnectionString"],
                             mySqlOptionsAction: sqlOptions =>
                             {
+                                //sqlOptions.AnsiCharSet(CharSet.Utf8mb4);
+                                //sqlOptions.UnicodeCharSet(CharSet.Utf8mb4);
                                 sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
                                 sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: new int[0]);
                             });
